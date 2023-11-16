@@ -8,19 +8,21 @@ import (
 )
 
 type Response struct {
-	status  int
-	message string
+	Status  int    `json:"statusCode,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 func main() {
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(Response{status: 200, message: "Heyy there"})
+		json.NewEncoder(w).Encode(Response{Status: 200, Message: "Heyy there"})
 	})
 
 	http.HandleFunc("/health-check", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(Response{status: 200, message: "Server is up and Running"})
+
+		json.NewEncoder(w).Encode(Response{Status: 200, Message: "Server is up and running."})
 	})
 
 	fmt.Println("Server running on port 8080")
